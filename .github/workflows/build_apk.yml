@@ -2,7 +2,7 @@ name: Build Flutter APKs
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, devin/1754525309-flutter-movie-streaming-system ]
   pull_request:
     branches: [ main, master ]
   workflow_dispatch:
