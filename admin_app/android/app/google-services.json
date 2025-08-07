@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "964278486220",
+    "project_id": "nseantv",
+    "storage_bucket": "nseantv.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:964278486220:android:5c685717afcbac5bf2ee69",
+        "android_client_info": {
+          "package_name": "com.nseantv.adminapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgAVdzshyyJUEIn4eBH_yRLl87O60B8Sk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:964278486220:android:50fbd0e6f84b4a3ff2ee69",
+        "android_client_info": {
+          "package_name": "com.nseantv.userapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgAVdzshyyJUEIn4eBH_yRLl87O60B8Sk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
