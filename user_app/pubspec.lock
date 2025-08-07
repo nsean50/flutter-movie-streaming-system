@@ -69,10 +69,10 @@ packages:
     dependency: "direct main"
     description:
       name: chewie
-      sha256: d8908907084d28533fbabe4a8b7112b63caa907506e5163fe2d10a5fa7cbf3ee
+      sha256: "3427e469d7cc99536ac4fbaa069b3352c21760263e65ffb4f0e1c054af43a73e"
       url: "https://pub.dev"
     source: hosted
-    version: "1.8.7"
+    version: "1.7.4"
   clock:
     dependency: transitive
     description:
