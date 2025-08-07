@@ -1,14 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'firebase_options.dart';
 import 'screens/home_screen.dart';
 import 'services/ad_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  MobileAds.instance.initialize();
-  AdService.loadInterstitialAd();
+  
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    print('Firebase initialized successfully');
+  } catch (e) {
+    print('Firebase initialization failed: $e');
+  }
+  
+  try {
+    MobileAds.instance.initialize();
+    AdService.loadInterstitialAd();
+    print('Google Mobile Ads initialized successfully');
+  } catch (e) {
+    print('Google Mobile Ads initialization failed: $e');
+  }
+  
   runApp(const MovieApp());
 }
 
