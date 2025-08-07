@@ -1,0 +1,96 @@
+name: Build Flutter APKs
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+    
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.19.0'
+        channel: 'stable'
+    
+    - name: Get dependencies for user app
+      run: |
+        cd user_app
+        flutter pub get
+    
+    - name: Get dependencies for admin app
+      run: |
+        cd admin_app
+        flutter pub get
+    
+    - name: Build user app APK
+      run: |
+        cd user_app
+        flutter build apk --release
+        
+    - name: Build admin app APK
+      run: |
+        cd admin_app
+        flutter build apk --release
+    
+    - name: Upload user app APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: user-app-apk
+        path: user_app/build/app/outputs/flutter-apk/app-release.apk
+    
+    - name: Upload admin app APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: admin-app-apk
+        path: admin_app/build/app/outputs/flutter-apk/app-release.apk
+    
+    - name: Create Release
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v${{ github.run_number }}
+        name: إصدار تطبيقات الأفلام والمسلسلات v${{ github.run_number }}
+        body: |
+          ## تطبيقات الأفلام والمسلسلات
+          
+          ### التطبيقات المتوفرة:
+          - **تطبيق المستخدمين**: لمشاهدة الأفلام والمسلسلات
+          - **تطبيق الإدارة**: لإضافة وإدارة المحتوى (رمز PIN: 1234)
+          
+          ### المميزات:
+          - دعم روابط Google Drive و M3U8
+          - تشغيل فيديو بجودة تلقائية
+          - إعلانات AdMob (أكواد تجريبية)
+          - واجهة عربية جذابة
+          - تخزين البيانات عبر Firebase
+          
+          ### متطلبات الإعداد:
+          1. إنشاء مشروع Firebase جديد
+          2. تفعيل Firestore Database
+          3. إضافة ملفات google-services.json للتطبيقين
+          4. تحديث أكواد AdMob بالمعرفات الحقيقية
+          
+          ### تحميل التطبيقات:
+          - [تطبيق المستخدمين (APK)](./user-app.apk)
+          - [تطبيق الإدارة (APK)](./admin-app.apk)
+        files: |
+          user_app/build/app/outputs/flutter-apk/app-release.apk
+          admin_app/build/app/outputs/flutter-apk/app-release.apk
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

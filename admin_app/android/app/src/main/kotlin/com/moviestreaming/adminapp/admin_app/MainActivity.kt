@@ -1,0 +1,5 @@
+package com.moviestreaming.adminapp.admin_app
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity: FlutterActivity()
